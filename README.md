@@ -1,4 +1,4 @@
-# Toy Blocks
+# React Coding challenge
 
 ## Installation
 
