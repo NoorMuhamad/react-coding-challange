@@ -14,13 +14,13 @@ const initialState = () => ({
         loading: false,
       },
       {
-        url: "https://calm-anchorage-82141.herokuapp.com",
+        url: "https://servername.herokuapp.com", // Deployed local Server
         online: false,
         name: "Node 3",
         loading: false,
       },
       {
-        url: "http://localhost:3002",
+        url: "http://localhost:3002", // Local server
         online: false,
         name: "Node 4",
         loading: false,
