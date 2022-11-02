@@ -5,6 +5,7 @@ import { Typography, Box } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store/configureStore";
 import { checkNodesStatus, selectNodes } from "../reducers/nodes";
+import { checkNodesBlock } from "../reducers/blocks";
 
 export const Nodes: React.FC = () => {
   const [expandedNodeURL, setExpandedNodeURL] = useState<null | string>(null);
@@ -18,6 +19,9 @@ export const Nodes: React.FC = () => {
 
   function toggleNodeExpanded(node: NodeType) {
     setExpandedNodeURL(node.url === expandedNodeURL ? null : node.url);
+    if (node.url !== expandedNodeURL) {
+      dispatch(checkNodesBlock(node.url));
+    }
   }
 
   return (

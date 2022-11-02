@@ -11,6 +11,8 @@ import { styled } from "@mui/material/styles";
 import colors from "../constants/colors";
 import Status from "./Status";
 import { Node as NodeType } from "../types/Node";
+import { useAppSelector } from "../store/configureStore";
+import { selectBlocks } from "../reducers/blocks";
 
 type Props = {
   node: NodeType;
@@ -45,6 +47,14 @@ const BoxSummaryContent = styled(Box)({
   width: "100%",
   paddingRight: 20,
 });
+const BoxSummaryBlock = styled(Box)({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  width: "100%",
+  paddingRight: 20,
+});
 
 const TypographyHeading = styled(Typography)({
   fontSize: 17,
@@ -60,6 +70,7 @@ const TypographySecondaryHeading = styled(Typography)(({ theme }) => ({
 }));
 
 const Node: React.FC<Props> = ({ node, expanded, toggleNodeExpanded }) => {
+  const blocks = useAppSelector(selectBlocks);
   return (
     <AccordionRoot
       elevation={3}
@@ -80,7 +91,22 @@ const Node: React.FC<Props> = ({ node, expanded, toggleNodeExpanded }) => {
         </BoxSummaryContent>
       </AccordionSummaryContainer>
       <AccordionDetails>
-        <Typography>Blocks go here</Typography>
+        {blocks.length  ? blocks.map((block: any) => (
+          <BoxSummaryBlock>
+            <Box>
+              <TypographyHeading variant="h5">
+                {block.id}
+              </TypographyHeading>
+              <TypographySecondaryHeading variant="subtitle1">
+                {block.attributes.data}
+              </TypographySecondaryHeading>
+            </Box>
+          </BoxSummaryBlock>
+        )) :
+          <TypographySecondaryHeading variant="subtitle1">
+            OFFLINE
+          </TypographySecondaryHeading>
+        }
       </AccordionDetails>
     </AccordionRoot>
   );
